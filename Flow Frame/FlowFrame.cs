@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.UI.Composition;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace Flow_Frame
 {
@@ -14,17 +16,48 @@ namespace Flow_Frame
         private Page CurrentPage => Content as Page;
 
 
-        public new bool Navigate(Type sourcePageType)
+        public new IAsyncOperation<bool> Navigate(Type sourcePageType)
         {
-            AsyncMask(AnimationService.AnimatePageOut(CurrentPage));
-            bool navigated = base.Navigate(sourcePageType);
-            AsyncMask(AnimationService.AnimatePageIn(CurrentPage));
-            return navigated;
+            return Task.Run(async () =>
+            {
+                bool navigated = false;
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, async () =>
+                {
+                    await AnimationService.AnimatePageOut(CurrentPage);
+                    navigated = base.Navigate(sourcePageType, null, new SuppressNavigationTransitionInfo());
+                    await AnimationService.AnimatePageIn(CurrentPage);
+                });
+                return navigated;
+            }).AsAsyncOperation();
         }
 
-        public new void GoBack()
+        public new IAsyncOperation<bool> Navigate(Type sourcePageType, object parameter)
         {
-            base.GoBack();
+            return Task.Run(async () =>
+            {
+                bool navigated = false;
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, async () =>
+                {
+                    await AnimationService.AnimatePageOut(CurrentPage);
+                    navigated = base.Navigate(sourcePageType,parameter, new SuppressNavigationTransitionInfo());
+                    await AnimationService.AnimatePageIn(CurrentPage);
+                });
+                return navigated;
+            }).AsAsyncOperation();
+        }
+
+        public new IAsyncAction GoBack()
+        {
+            return Task.Run(async () =>
+            {
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, async () =>
+                {
+                    await AnimationService.AnimatePageOutReverse(CurrentPage);
+                    base.GoBack(new SuppressNavigationTransitionInfo());
+                    await AnimationService.AnimatePageInReverse(CurrentPage);
+                });
+            }).AsAsyncAction();
+            
         }
 
         private bool CheckIfFirstForwardStackItemHasPageType(Type pageType)
@@ -39,9 +72,6 @@ namespace Flow_Frame
             return frameHistoryHasPageType;
         }
 
-        public void AsyncMask(Task taskToRun)
-        {
-            Task.Run(async () => await taskToRun).GetAwaiter().GetResult();
-        }
+
     }
 }

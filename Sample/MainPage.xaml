@@ -5,10 +5,26 @@
     xmlns:local="using:Sample"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ff="using:Flow_Frame"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+    <ff:FlowFrame Name="mainFrame">
 
+    </ff:FlowFrame>
+
+        <Grid Grid.Row="1">
+        <Button Name="prevButton" HorizontalAlignment="Left"
+                Click="prevButton_Click"
+                Content="Previous"/>
+        <Button Name="nextButton" HorizontalAlignment="Right"
+                Click="nextButton_Click"
+                Content="Next"/>
+        </Grid>
     </Grid>
+
 </Page>
