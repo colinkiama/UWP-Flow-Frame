@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flow Frame", "Flow Frame\Flow Frame.csproj", "{5CF3D485-2F90-47A3-B5E7-124BCEB4BB2E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sample", "Sample\Sample.csproj", "{5946BDBE-8808-4441-856A-A5D0504043BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,26 @@ Global
 		{5CF3D485-2F90-47A3-B5E7-124BCEB4BB2E}.Release|x64.Build.0 = Release|x64
 		{5CF3D485-2F90-47A3-B5E7-124BCEB4BB2E}.Release|x86.ActiveCfg = Release|x86
 		{5CF3D485-2F90-47A3-B5E7-124BCEB4BB2E}.Release|x86.Build.0 = Release|x86
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Debug|ARM.ActiveCfg = Debug|ARM
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Debug|ARM.Build.0 = Debug|ARM
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Debug|ARM.Deploy.0 = Debug|ARM
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Debug|x64.ActiveCfg = Debug|x64
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Debug|x64.Build.0 = Debug|x64
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Debug|x64.Deploy.0 = Debug|x64
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Debug|x86.ActiveCfg = Debug|x86
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Debug|x86.Build.0 = Debug|x86
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Debug|x86.Deploy.0 = Debug|x86
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Release|Any CPU.ActiveCfg = Release|x86
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Release|ARM.ActiveCfg = Release|ARM
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Release|ARM.Build.0 = Release|ARM
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Release|ARM.Deploy.0 = Release|ARM
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Release|x64.ActiveCfg = Release|x64
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Release|x64.Build.0 = Release|x64
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Release|x64.Deploy.0 = Release|x64
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Release|x86.ActiveCfg = Release|x86
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Release|x86.Build.0 = Release|x86
+		{5946BDBE-8808-4441-856A-A5D0504043BE}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
