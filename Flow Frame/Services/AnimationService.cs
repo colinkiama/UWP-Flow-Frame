@@ -5,6 +5,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -264,24 +265,21 @@ namespace Flow_Frame.Services
                     _compositor = ElementCompositionPreview.GetElementVisual(page).Compositor;
 
                 var visual = ElementCompositionPreview.GetElementVisual(page);
+
                 visual.Opacity = 0f;
+
+
 
                 KeyFrameAnimation opacityAnimation = _compositor.CreateScalarKeyFrameAnimation();
                 opacityAnimation.InsertExpressionKeyFrame(1f, "1");
                 opacityAnimation.Duration = TimeSpan.FromMilliseconds(1000);
 
-
-
-
                 visual.StartAnimation("Opacity", opacityAnimation);
                 await Task.Delay(opacityAnimation.Duration);
             }
-
-
-
         }
 
-        internal static void ColorTransitionOut(Frame frame)
+        internal async static Task ColorTransitionOut(Frame frame)
         {
             if (frame.Content is Page page)
             {
@@ -301,7 +299,20 @@ namespace Flow_Frame.Services
                         frame.Background = (SolidColorBrush)Application.Current.Resources[systemBackgroundColourKey];
                     }
                 }
+                var visual = ElementCompositionPreview.GetElementVisual(page);
+
+                KeyFrameAnimation opacityAnimation = _compositor.CreateScalarKeyFrameAnimation();
+                opacityAnimation.InsertExpressionKeyFrame(1f, "0");
+                opacityAnimation.Duration = TimeSpan.FromMilliseconds(1000);
+
+                var sv = _compositor.CreateSpriteVisual();
+                sv.Brush = _compositor.CreateColorBrush(Colors.LimeGreen);
+
+                visual.StartAnimation("Opacity", opacityAnimation);
+                await Task.Delay(333);
+
             }
+
         }
 
 

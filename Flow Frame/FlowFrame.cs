@@ -21,7 +21,7 @@ namespace Flow_Frame
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, async () =>
                 {
 
-                    AnimationService.ColorTransitionOut(this);
+                    await AnimationService.ColorTransitionOut(this);
                     navigated = base.Navigate(sourcePageType, null, new SuppressNavigationTransitionInfo());
                     await AnimationService.ColorTransitionIn(this);
 
@@ -51,7 +51,7 @@ namespace Flow_Frame
             {
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, async () =>
                 {
-                    AnimationService.ColorTransitionOut(this);
+                    await AnimationService.ColorTransitionOut(this);
                     base.GoBack(new SuppressNavigationTransitionInfo());
                     await AnimationService.ColorTransitionIn(this);
                 });
