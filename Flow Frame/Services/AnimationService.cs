@@ -134,7 +134,7 @@ namespace Flow_Frame.Services
             }
         }
 
-        internal async static Task FastSildeIn(Frame frame)
+        internal async static Task FastSlideIn(Frame frame)
         {
             if (frame.Content is Page page)
             {
