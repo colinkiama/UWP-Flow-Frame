@@ -1,18 +1,35 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
-    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
-    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <id>FlowFrame.colinkiama</id>
+    <version>0.0.0.1</version>
+    <title>Flow Frame</title>
+    <authors>Colin Kiama</authors>
+    <owners>Colin Kiama</owners>
+    <licenseUrl>https://raw.githubusercontent.com/colinkiama/UWP-Flow-Frame/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/colinkiama/UWP-Flow-Frame</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <description>Flow Frame is a new and improved Frame control. This builds upon the default frame control by providing high-performance page transition animations powered by the composition layer. Fresh, new animations will be used by default</description>
+    <releaseNotes>Beta Release</releaseNotes>
     <copyright>Copyright 2018</copyright>
-    <tags>Tag1 Tag2</tags>
+    <tags>flow frame flowframe colinkiama uwp frame composition ui</tags>
   </metadata>
+   <files>
+        <!-- WinMd and IntelliSense files -->
+        <file src=".\bin\Release\Flow_Frame.winmd" target="lib\uap10.0"/>
+        <file src=".\bin\Release\Flow_Frame.xml" target="lib\uap10.0"/>
+
+
+        <!-- DLLs and resources -->
+        <file src=".\bin\ARM\Release\Flow_Frame.pri" target="runtimes\win10-arm\native"/>
+        <file src=".\bin\x64\Release\Flow_Frame.pri" target="runtimes\win10-x64\native"/>
+        <file src=".\bin\Release\Flow_Frame.pri" target="runtimes\win10-x86\native"/>
+        
+        <!-- .targets -->
+        <file src="FlowFrame.targets" target="build\native"/>
+    </files>
+
+     
+
+
 </package>
