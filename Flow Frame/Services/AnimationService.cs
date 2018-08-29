@@ -16,7 +16,7 @@ namespace Flow_Frame.Services
     internal class AnimationService
     {
         private static Compositor _compositor;
-        const string systemBackgroundColourKey = "SystemControlBackgroundAltHighBrush"; 
+        const string systemBackgroundColourKey = "SystemControlBackgroundAltHighBrush";
 
         internal static async Task AnimatePageInReverse(Frame frame)
         {
@@ -255,6 +255,55 @@ namespace Flow_Frame.Services
                 await Task.Delay(100);
             }
         }
+
+        internal async static Task ColorTransitionIn(Frame frame)
+        {
+            if (frame.Content is Page page)
+            {
+                if (_compositor == null)
+                    _compositor = ElementCompositionPreview.GetElementVisual(page).Compositor;
+
+                var visual = ElementCompositionPreview.GetElementVisual(page);
+                visual.Opacity = 0f;
+
+                KeyFrameAnimation opacityAnimation = _compositor.CreateScalarKeyFrameAnimation();
+                opacityAnimation.InsertExpressionKeyFrame(1f, "1");
+                opacityAnimation.Duration = TimeSpan.FromMilliseconds(1000);
+
+
+
+
+                visual.StartAnimation("Opacity", opacityAnimation);
+                await Task.Delay(opacityAnimation.Duration);
+            }
+
+
+
+        }
+
+        internal static void ColorTransitionOut(Frame frame)
+        {
+            if (frame.Content is Page page)
+            {
+                if (page.Background != null)
+                {
+                    frame.Background = page.Background;
+                }
+
+                else if (page.Content is Panel panel)
+                {
+                    if (panel.Background != null)
+                    {
+                        frame.Background = panel.Background;
+                    }
+                    else
+                    {
+                        frame.Background = (SolidColorBrush)Application.Current.Resources[systemBackgroundColourKey];
+                    }
+                }
+            }
+        }
+
 
     }
 }
