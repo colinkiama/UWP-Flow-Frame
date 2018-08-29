@@ -5,10 +5,9 @@
     xmlns:local="using:Sample"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="Blue">
+    mc:Ignorable="d">
 
-    <Grid Background="Red">
+    <Grid>
         <TextBlock Text="You are in Page 1" HorizontalAlignment="Center"
                VerticalAlignment="Center"/>
     </Grid>

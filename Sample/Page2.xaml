@@ -6,9 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:FF="using:Flow_Frame"
-    mc:Ignorable="d"
-    Background="Yellow">
-    <Grid Background="Blue">
+    mc:Ignorable="d">
+    <Grid Background="Purple">
         <TextBlock Text="You are in Page 2"
                HorizontalAlignment="Center"
                VerticalAlignment="Center"/>

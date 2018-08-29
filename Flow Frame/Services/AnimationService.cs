@@ -9,12 +9,14 @@ using Windows.UI.Composition;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Hosting;
+using Windows.UI.Xaml.Media;
 
 namespace Flow_Frame.Services
 {
     internal class AnimationService
     {
         private static Compositor _compositor;
+        const string systemBackgroundColourKey = "SystemControlBackgroundAltHighBrush"; 
 
         internal static async Task AnimatePageInReverse(Frame frame)
         {
@@ -133,8 +135,9 @@ namespace Flow_Frame.Services
 
         internal async static Task FastSildeIn(Frame frame)
         {
-            if (frame.Content is FrameworkElement page)
+            if (frame.Content is Page page)
             {
+                //frame.Background = page.Background;
                 if (_compositor == null)
                     _compositor = ElementCompositionPreview.GetElementVisual(page).Compositor;
 
@@ -155,8 +158,25 @@ namespace Flow_Frame.Services
 
         internal async static Task FastSlideOut(Frame frame)
         {
-            if (frame.Content is FrameworkElement page)
+            if (frame.Content is Page page)
             {
+                if (page.Background != null)
+                {
+                    frame.Background = page.Background;
+                }
+
+                else if (page.Content is Panel panel)
+                {
+                    if (panel.Background != null)
+                    {
+                        frame.Background = panel.Background;
+                    }
+                    else
+                    {
+                        frame.Background = (SolidColorBrush)Application.Current.Resources[systemBackgroundColourKey];
+                    }
+                }
+
                 if (_compositor == null)
                     _compositor = ElementCompositionPreview.GetElementVisual(page).Compositor;
 
@@ -174,7 +194,67 @@ namespace Flow_Frame.Services
                 await Task.Delay(100);
             }
         }
+
+        internal async static Task FastSlideInReverse(Frame frame)
+        {
+            if (frame.Content is Page page)
+            {
+                if (_compositor == null)
+                    _compositor = ElementCompositionPreview.GetElementVisual(page).Compositor;
+
+                var visual = ElementCompositionPreview.GetElementVisual(page);
+                visual.Offset = new Vector3(-((float)frame.ActualWidth - 140), 0, 0);
+
+                KeyFrameAnimation offsetInAnimation = _compositor.CreateScalarKeyFrameAnimation();
+                offsetInAnimation.InsertExpressionKeyFrame(1f, "0");
+                offsetInAnimation.Duration = TimeSpan.FromMilliseconds(300);
+
+
+
+
+                visual.StartAnimation("Offset.X", offsetInAnimation);
+                await Task.Delay(offsetInAnimation.Duration);
+            }
+        }
+
+        internal async static Task FastSlideOutReverse(Frame frame)
+        {
+            if (frame.Content is Page page)
+            {
+                if (page.Background != null)
+                {
+                    frame.Background = page.Background;
+                }
+
+                else if (page.Content is Panel panel)
+                {
+                    if (panel.Background != null)
+                    {
+                        frame.Background = panel.Background;
+                    }
+                    else
+                    {
+                        frame.Background = (SolidColorBrush)Application.Current.Resources[systemBackgroundColourKey];
+                    }
+                }
+
+                if (_compositor == null)
+                    _compositor = ElementCompositionPreview.GetElementVisual(page).Compositor;
+
+                var visual = ElementCompositionPreview.GetElementVisual(page);
+
+
+                KeyFrameAnimation offsetInAnimation = _compositor.CreateScalarKeyFrameAnimation();
+
+                string offsetToUse = $"{140}";
+                offsetInAnimation.InsertExpressionKeyFrame(1f, offsetToUse);
+                offsetInAnimation.Duration = TimeSpan.FromMilliseconds(300);
+
+
+                visual.StartAnimation("Offset.X", offsetInAnimation);
+                await Task.Delay(100);
+            }
+        }
+
     }
-
-
 }

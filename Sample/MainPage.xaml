@@ -13,18 +13,18 @@
             <RowDefinition/>
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-    <ff:FlowFrame Name="mainFrame">
+        <ff:FlowFrame Name="mainFrame"/>
 
-    </ff:FlowFrame>
-
-        <Grid Grid.Row="1">
+        <StackPanel Orientation="Horizontal" Grid.Row="1"
+                    HorizontalAlignment="Center">
         <Button Name="prevButton" HorizontalAlignment="Left"
                 Click="prevButton_Click"
                 Content="Previous"/>
         <Button Name="nextButton" HorizontalAlignment="Right"
                 Click="nextButton_Click"
-                Content="Next"/>
-        </Grid>
+                Content="Next"
+                Margin="4,0,0,0"/>
+        </StackPanel>
     </Grid>
 
 </Page>

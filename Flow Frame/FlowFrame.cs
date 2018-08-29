@@ -53,9 +53,9 @@ namespace Flow_Frame
             {
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, async () =>
                 {
-                    await AnimationService.AnimatePageOutReverse(this);
+                    await AnimationService.FastSlideOutReverse(this);
                     base.GoBack(new SuppressNavigationTransitionInfo());
-                    await AnimationService.AnimatePageInReverse(this);
+                    await AnimationService.FastSlideInReverse(this);
                 });
             }).AsAsyncAction();
 
