@@ -16,9 +16,9 @@ namespace Flow_Frame.Services
     {
         private static Compositor _compositor;
 
-        internal static async Task AnimatePageInReverse(Page page)
+        internal static async Task AnimatePageInReverse(Frame frame)
         {
-            if (page != null)
+            if (frame.Content is FrameworkElement page)
             {
                 if (_compositor == null)
                     _compositor = ElementCompositionPreview.GetElementVisual(page).Compositor;
@@ -46,19 +46,18 @@ namespace Flow_Frame.Services
             }
         }
 
-        internal async static Task AnimatePageOutReverse(Page page)
+        internal async static Task AnimatePageOutReverse(Frame frame)
         {
-            if (page != null)
+            if (frame.Content is FrameworkElement page)
             {
                 if (_compositor == null)
                     _compositor = ElementCompositionPreview.GetElementVisual(page).Compositor;
 
                 var visual = ElementCompositionPreview.GetElementVisual(page);
 
-                
-                var parent = (FrameworkElement)page.Parent;
-                
-                string offsetToUse = $"{parent.ActualWidth}";
+
+
+                string offsetToUse = $"{frame.ActualWidth}";
 
                 KeyFrameAnimation offsetInAnimation = _compositor.CreateScalarKeyFrameAnimation();
                 offsetInAnimation.InsertExpressionKeyFrame(1f, offsetToUse);
@@ -66,17 +65,17 @@ namespace Flow_Frame.Services
 
                 KeyFrameAnimation fadeAnimation = _compositor.CreateScalarKeyFrameAnimation();
                 fadeAnimation.InsertExpressionKeyFrame(1f, "0");
-                fadeAnimation.Duration = TimeSpan.FromMilliseconds(200);
+                fadeAnimation.Duration = TimeSpan.FromMilliseconds(250);
 
                 visual.StartAnimation("Offset.X", offsetInAnimation);
-                //visual.StartAnimation("Opacity", fadeAnimation);
+                visual.StartAnimation("Opacity", fadeAnimation);
                 await Task.Delay(fadeAnimation.Duration);
             }
         }
 
-        internal async static Task AnimatePageIn(Page page)
+        internal async static Task AnimatePageIn(Frame frame)
         {
-            if (page != null)
+            if (frame.Content is FrameworkElement page)
             {
                 if (_compositor == null)
                     _compositor = ElementCompositionPreview.GetElementVisual(page).Compositor;
@@ -105,9 +104,9 @@ namespace Flow_Frame.Services
 
         }
 
-        internal async static Task AnimatePageOut(Page page)
+        internal async static Task AnimatePageOut(Frame frame)
         {
-            if (page != null)
+            if (frame.Content is FrameworkElement page)
             {
                 if (_compositor == null)
                     _compositor = ElementCompositionPreview.GetElementVisual(page).Compositor;
@@ -116,9 +115,9 @@ namespace Flow_Frame.Services
 
 
                 KeyFrameAnimation offsetInAnimation = _compositor.CreateScalarKeyFrameAnimation();
-                var parent = (FrameworkElement)page.Parent;
 
-                string offsetToUse = $"-{parent.ActualWidth}";
+
+                string offsetToUse = $"-{frame.ActualWidth}";
                 offsetInAnimation.InsertExpressionKeyFrame(1f, offsetToUse);
                 offsetInAnimation.Duration = TimeSpan.FromMilliseconds(250);
 
@@ -132,7 +131,49 @@ namespace Flow_Frame.Services
             }
         }
 
-       
+        internal async static Task FastSildeIn(Frame frame)
+        {
+            if (frame.Content is FrameworkElement page)
+            {
+                if (_compositor == null)
+                    _compositor = ElementCompositionPreview.GetElementVisual(page).Compositor;
+
+                var visual = ElementCompositionPreview.GetElementVisual(page);
+                visual.Offset = new Vector3((float)frame.ActualWidth - 140, 0, 0);
+
+                KeyFrameAnimation offsetInAnimation = _compositor.CreateScalarKeyFrameAnimation();
+                offsetInAnimation.InsertExpressionKeyFrame(1f, "0");
+                offsetInAnimation.Duration = TimeSpan.FromMilliseconds(300);
+
+
+
+
+                visual.StartAnimation("Offset.X", offsetInAnimation);
+                await Task.Delay(offsetInAnimation.Duration);
+            }
+        }
+
+        internal async static Task FastSlideOut(Frame frame)
+        {
+            if (frame.Content is FrameworkElement page)
+            {
+                if (_compositor == null)
+                    _compositor = ElementCompositionPreview.GetElementVisual(page).Compositor;
+
+                var visual = ElementCompositionPreview.GetElementVisual(page);
+
+
+                KeyFrameAnimation offsetInAnimation = _compositor.CreateScalarKeyFrameAnimation();
+
+                string offsetToUse = $"-{140}";
+                offsetInAnimation.InsertExpressionKeyFrame(1f, offsetToUse);
+                offsetInAnimation.Duration = TimeSpan.FromMilliseconds(300);
+
+
+                visual.StartAnimation("Offset.X", offsetInAnimation);
+                await Task.Delay(100);
+            }
+        }
     }
 
 

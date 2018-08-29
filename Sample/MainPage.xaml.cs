@@ -25,20 +25,25 @@ namespace Sample
         public MainPage()
         {
             this.InitializeComponent();
-            mainFrame.Navigate(typeof(Page1));
         }
 
-        private void nextButton_Click(object sender, RoutedEventArgs e)
+        private async void nextButton_Click(object sender, RoutedEventArgs e)
         {
-            mainFrame.Navigate(typeof(Page2));
+           await mainFrame.Navigate(typeof(Page2));
         }
 
-        private void prevButton_Click(object sender, RoutedEventArgs e)
+        private async void prevButton_Click(object sender, RoutedEventArgs e)
         {
             if (mainFrame.CanGoBack)
             {
-                mainFrame.GoBack();
+                await mainFrame.GoBack();
             }
+        }
+
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            await mainFrame.Navigate(typeof(Page1));
         }
     }
 }

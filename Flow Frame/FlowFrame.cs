@@ -13,9 +13,6 @@ namespace Flow_Frame
 {
     public sealed class FlowFrame : Frame
     {
-        private Page CurrentPage => Content as Page;
-
-
         public new IAsyncOperation<bool> Navigate(Type sourcePageType)
         {
             return Task.Run(async () =>
@@ -23,9 +20,13 @@ namespace Flow_Frame
                 bool navigated = false;
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, async () =>
                 {
-                    await AnimationService.AnimatePageOut(CurrentPage);
+                    await AnimationService.FastSlideOut(this);
+                    //await AnimationService.AnimatePageOut(CurrentPage);
+
                     navigated = base.Navigate(sourcePageType, null, new SuppressNavigationTransitionInfo());
-                    await AnimationService.AnimatePageIn(CurrentPage);
+
+                    //await AnimationService.AnimatePageIn(CurrentPage);
+                    await AnimationService.FastSildeIn(this);
                 });
                 return navigated;
             }).AsAsyncOperation();
@@ -38,9 +39,9 @@ namespace Flow_Frame
                 bool navigated = false;
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, async () =>
                 {
-                    await AnimationService.AnimatePageOut(CurrentPage);
-                    navigated = base.Navigate(sourcePageType,parameter, new SuppressNavigationTransitionInfo());
-                    await AnimationService.AnimatePageIn(CurrentPage);
+                    await AnimationService.AnimatePageOut(this);
+                    navigated = base.Navigate(sourcePageType, parameter, new SuppressNavigationTransitionInfo());
+                    await AnimationService.AnimatePageIn(this);
                 });
                 return navigated;
             }).AsAsyncOperation();
@@ -52,12 +53,12 @@ namespace Flow_Frame
             {
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, async () =>
                 {
-                    await AnimationService.AnimatePageOutReverse(CurrentPage);
+                    await AnimationService.AnimatePageOutReverse(this);
                     base.GoBack(new SuppressNavigationTransitionInfo());
-                    await AnimationService.AnimatePageInReverse(CurrentPage);
+                    await AnimationService.AnimatePageInReverse(this);
                 });
             }).AsAsyncAction();
-            
+
         }
 
         private bool CheckIfFirstForwardStackItemHasPageType(Type pageType)
